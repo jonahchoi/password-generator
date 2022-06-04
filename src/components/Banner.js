@@ -21,7 +21,7 @@ const Banner = ({showBanner, setShowBanner, bannerPhrase}) => {
         show={showBanner}
         onClose={()=>setShowBanner(false)} 
         dismissible 
-        variant={bannerPhrase === 'Password copied successfully!' ? 'success' : 'warning'}>
+        variant={bannerPhrase === 'Password copied successfully!' ? 'success' : 'danger'}>
           {bannerPhrase}</Alert>
       
     </div>

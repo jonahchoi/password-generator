@@ -48,25 +48,31 @@ const PasswordGenerator = () => {
   }
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(password)
-    setShowBanner(true);
-    setBannerPhrase('Password copied successfully!');
+    navigator.clipboard
+      .writeText(password)
+      .then(()=>{
+        setShowBanner(true);
+        setBannerPhrase('Password copied successfully!');
+      })
+      .catch(()=> {
+        console.log('Error: Could not copy')
+      })
+    
   }
 
   return (
-    <div>
-      
-      <div className='d-flex flex-column justify-content-center align-items-center' style={{height: '100vh'}}>
-        
-        <Banner 
-          showBanner={showBanner} 
-          setShowBanner={setShowBanner} 
-          bannerPhrase={bannerPhrase} 
-        />
+    <div className='d-flex flex-column justify-content-center align-items-center' style={{height: '100vh'}}>
+      <Banner 
+        showBanner={showBanner} 
+        setShowBanner={setShowBanner} 
+        bannerPhrase={bannerPhrase} 
+      />
+      <div className='border border-dark rounded p-4'>
+        <h1 className='text-center'>Password Generator</h1>
         <Button 
-          className='d-flex align-items-center m-3' 
-          style={{minWidth: '400px', minHeight: '40px'}} 
-          variant='outline-dark' 
+          className='d-flex align-items-center my-3' 
+          style={{minWidth: '435px', minHeight: '40px'}} 
+          variant='outline-primary' 
           onClick={handleCopy}
         >
           <span className='flex-grow-1'>{password}</span>
@@ -75,9 +81,9 @@ const PasswordGenerator = () => {
         
         <Form>
           <Form.Group>
-            <Form.Label >Password Length</Form.Label>
-            <Row>
-              <Col xs='9'>
+            <Form.Label className='m-0'>Password Length</Form.Label>
+            <Row className='align-items-center'>
+              <Col xs='10'>
                 <Form.Range 
                   id='lengthRange'
                   min='8'
@@ -86,8 +92,9 @@ const PasswordGenerator = () => {
                   onChange={(e)=> {setPasswordLength(e.target.value)}}
                 />
               </Col>
-              <Col xs='3'>
+              <Col xs='2'>
                 <Form.Control 
+                  className='text-center'
                   value={passwordLength} 
                   readOnly
                 />
@@ -119,8 +126,8 @@ const PasswordGenerator = () => {
             checked={isSymbolsOn}
             onChange={()=>{setIsSymbolsOn(!isSymbolsOn)}}
           />
-          <Form.Group className='text-center'>
-            <Button onClick={generatePassword} className='m-2'>Generate</Button>
+          <Form.Group className='text-center mt-3'>
+            <Button onClick={generatePassword} >Generate</Button>
           </Form.Group>
           
         </Form>
